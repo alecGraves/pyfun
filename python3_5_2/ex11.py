@@ -1,11 +1,11 @@
 #ex11.py
 #basic input
 print("How old are you?", end=' ')
-age = input()
+age = int(input())
 print("How tall are you?", end=' ')
-height = input()
+height = int(input())
 print("How much do you weigh?", end=' ')
-weight = input()
+weight = int(input())
 
 print("So you're %r old, %r tall, and %r heavy." % (
 	age, height, weight))
