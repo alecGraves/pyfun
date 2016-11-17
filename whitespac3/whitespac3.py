@@ -152,7 +152,7 @@ class WhiteSpace(object):
             self.write("IMP:Flow_Control")
         self.write("\n")
     def label(self, label):
-        '''Mark	a location in the program'''
+        '''Mark a location in the program'''
         self.flow()
         if self.explain:
             self.write("add_label")
@@ -167,17 +167,67 @@ class WhiteSpace(object):
         '''jump to a label unconditionally'''
         self.flow()
         if self.explain:
-            self.write("jump_to_following_label")
-        self.write(" \t" + self.number(label))
-    def jumpzero(self, label):
+            self.write("jump_to_")
+        self.write(" \n" + self.number(label))
+    def jumpzer(self, label):
         '''jump to a label if the top of the stack is 0'''
         self.flow()
         if self.explain:
-            self.write("jump_to_following_label_if_top_zer")
-        self.write(" \t" + self.number(label))
+            self.write("jump_to_if_top_zer")
+        self.write("\t " + self.number(label))
+    def jumpneg(self, label):
+        '''jump to a label if the top of the stack is negative'''
+        self.flow()
+        if self.explain:
+            self.write("jump_to_if_top_neg")
+        self.write("\t\t" + self.number(label))
+    def endsub(self):
+        '''end subroutine and return control to the caller'''
+        self.flow()
+        if self.explain:
+            self.write("break_subroutine")
+        self.write("\t\n")
+    def exit(self):
+        '''jump to a label if the top of the stack is negative'''
+        self.flow()
+        if self.explain:
+            self.write("exit_pgrm")
+        self.write("\n\n")
+
 # Serial com commands
-    def iostream(self):
-        '''IMP: serial commands'''
+    def iocom(self):
+        '''
+        IMP: Serial Commands
+        There are IO instructions for reading and writing numbers
+            and individual characters.
+        With these, string manipulation routines can be written.
+        The read instructions take the heap address in which to store
+            the result from the top of the stack.
+        '''
         if self.explain:
             self.write("IMP:I/O")
         self.write("\t\n")
+    def charout(self):
+        '''output character at top of stack'''
+        self.iocom()
+        if self.explain:
+            self.write("output_top_char")
+        self.write("  ")
+    def numout(self):
+        '''output number at top of stack'''
+        self.iocom()
+        if self.explain:
+            self.write("oututput_top_num")
+        self.write(" \t")
+    def charin(self):
+        '''read in a character'''
+        self.iocom()
+        if self.explain:
+            self.write("read_in_char")
+        self.write("\t ")
+    def numin(self):
+        '''read in a number'''
+        self.iocom()
+        if self.explain:
+            self.write("read_in_num")
+        self.write("\t\t")
